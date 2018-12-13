@@ -7,7 +7,7 @@ import lejos.hardware.Button;
  * 
  * @author John & Wifi
  */
-public class RunStopper extends Thread implements Runnable{
+public class RunStopper extends Thread {
 
 	/**
 	 * The run that this stopper will stop
@@ -35,7 +35,6 @@ public class RunStopper extends Thread implements Runnable{
 			if(Button.getButtons() == Button.ID_ESCAPE) {
 				while(Button.getButtons() == Button.ID_ESCAPE);
 				try {
-					System.out.println("trying to stop");
 					target.interrupt();
 					Thread.sleep(200);
 					if (RobotStructure.getInstance() != null)
@@ -45,6 +44,5 @@ public class RunStopper extends Thread implements Runnable{
 				}
 			}
 		}
-		System.out.println("target is ded");
 	}
 }

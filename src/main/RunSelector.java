@@ -29,7 +29,7 @@ public class RunSelector {
 		int arrowY = 0;
 		
 		boolean active = true;
-		MAIN_LOOP: while(active) {
+		while(active) {
 			
 			drawScreen(arrowY);	
 			
@@ -52,11 +52,10 @@ public class RunSelector {
 				while (Button.getButtons() == Button.ID_ESCAPE) {
 					// set active to false if 2 seconds have passed without release
 					if (System.currentTimeMillis() - startTime > 2000) {
-						System.out.println("will exit on release");
 						while (Button.getButtons() == Button.ID_ESCAPE)
 							;
 						active = false;
-						break MAIN_LOOP;
+						return;
 					}
 				}
 				break;
@@ -90,7 +89,7 @@ public class RunSelector {
 	 * @param runNum
 	 */
 	private static void startNewRun(int runNum) {
-		switch(runNum) {
+		switch(runNum+1) {
 		case 1:
 			//selectedRun = new Run1();
 			break;

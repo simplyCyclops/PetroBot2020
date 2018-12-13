@@ -8,9 +8,9 @@ import lejos.robotics.RegulatedMotor;
  * 
  * @author John & Wifi
  */
-public abstract class RobotRun extends Thread implements Runnable{
+public abstract class RobotRun extends Thread {
 	
-	/**
+	/** 
 	 * Run method which is called by the Thread's "start"
 	 */
 	@Override
