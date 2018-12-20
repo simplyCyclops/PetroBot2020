@@ -3,6 +3,7 @@ package main;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
+import robotUtils.MotorControl;
 import robotUtils.RobotRun;
 import robotUtils.RobotStructure;
 
@@ -19,6 +20,7 @@ import robotUtils.RobotStructure;
 public class RunSelector {
 	
 	private static String run1Name, run2Name, run3Name, run4Name, run5Name;
+	private static int numberOfRuns = 6;
 	
 	private static RobotRun selectedRun;
 	
@@ -41,7 +43,7 @@ public class RunSelector {
 				break;
 			case Button.ID_DOWN:
 				while(Button.getButtons() == Button.ID_DOWN);
-				arrowY = Math.min(5, arrowY + 1);
+				arrowY = Math.min(numberOfRuns, arrowY + 1);
 				break;
 			case Button.ID_ENTER:
 				while(Button.getButtons() == Button.ID_ENTER);
@@ -60,7 +62,6 @@ public class RunSelector {
 				}
 				break;
 			}
-			
 			Delay.msDelay(50);
 		}
 		
@@ -81,6 +82,7 @@ public class RunSelector {
 		LCD.drawString(run3Name, 2, 2);
 		LCD.drawString(run4Name, 2, 3);
 		LCD.drawString(run5Name, 2, 4);		
+		LCD.drawString("Motor Ctrl", 2, 5);
 	}
 	
 	/**
@@ -105,10 +107,11 @@ public class RunSelector {
 		case 5:
 			//selectedRun = new Run5();
 			break;	
+		case 6:
+			selectedRun = new MotorControl();
+			break;
 		}
 		selectedRun.start();
 		while(selectedRun.isAlive());
 	}
-	
-	
 }
