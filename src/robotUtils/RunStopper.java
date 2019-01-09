@@ -18,8 +18,8 @@ public class RunStopper extends Thread {
 	 * Constructor for a run stopper
 	 * @param run Target run for this stopper
 	 */
-	public RunStopper(RobotRun run) {
-		this.target = run;
+	public RunStopper() {
+		this.target = RunHandler.getCurrentRun();
 	}
 	
 	/**
@@ -30,12 +30,12 @@ public class RunStopper extends Thread {
 	@Override
 	public void run() {
 		//loops as long as target is running
-		while(target.isAlive()) {
+		while(target.isActive()) {
 			//when escape is pressed, interrupt target and stop motors immediately
 			if(Button.getButtons() == Button.ID_ESCAPE) {
 				while(Button.getButtons() == Button.ID_ESCAPE);
 				try {
-					target.interrupt();
+					target.deactivate();
 					Thread.sleep(200);
 					if (RobotStructure.getInstance() != null)
 						RobotStructure.getInstance().stopAllMotors();
