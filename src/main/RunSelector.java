@@ -3,9 +3,9 @@ package main;
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.utility.Delay;
-import robotUtils.MotorControl;
-import robotUtils.RobotRun;
-import robotUtils.RobotStructure;
+import robot.utils.MotorControl;
+import robot.utils.RobotMap;
+import robot.utils.RobotRun;
 
 /**
  * Sample master class, in charge of running specific runs.
@@ -19,18 +19,18 @@ import robotUtils.RobotStructure;
 
 public class RunSelector {
 	
+	//TODO: user run names and number to construct GUI
 	private static String run1Name, run2Name, run3Name, run4Name, run5Name;
-	private static int numberOfRuns = 6;
+	private static int userRuns = 5;
 	
 	private static RobotRun selectedRun;
 	
 	public static void main(String[] args) {
 		
-		RobotStructure.getInstance();
-		
+		RobotMap.getInstance();
 		int arrowY = 0;
-		
 		boolean active = true;
+		
 		while(active) {
 			
 			drawScreen(arrowY);	
@@ -43,7 +43,7 @@ public class RunSelector {
 				break;
 			case Button.ID_DOWN:
 				while(Button.getButtons() == Button.ID_DOWN);
-				arrowY = Math.min(numberOfRuns, arrowY + 1);
+				arrowY = Math.min(userRuns+1, arrowY + 1);
 				break;
 			case Button.ID_ENTER:
 				while(Button.getButtons() == Button.ID_ENTER);
@@ -69,7 +69,7 @@ public class RunSelector {
 	
 	/**
 	 * Draws everything that should be displayed on the screen (the arrow and run names)
-	 *  
+	 * TODO: modify to match your run count
 	 * @param yCoord The y coordinate the arrow should be displayed at.
 	 */
 	private static void drawScreen(int yCoord) {

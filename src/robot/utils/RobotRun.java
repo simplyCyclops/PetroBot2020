@@ -1,6 +1,6 @@
-package robotUtils;
+package robot.utils;
 
-import lejos.robotics.RegulatedMotor;
+import lejos.hardware.lcd.LCD;
 
 /**
  * Abstraction for a robot run. Starts both itself and a stopper thread which
@@ -19,6 +19,8 @@ public abstract class RobotRun extends Thread {
 	public void run() {
 		
 		active = true;
+		
+		LCD.clear();
 		
 		//set current run
 		RunHandler.setCurrentRun(this);

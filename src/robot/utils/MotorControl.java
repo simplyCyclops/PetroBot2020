@@ -1,4 +1,4 @@
-package robotUtils;
+package robot.utils;
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;

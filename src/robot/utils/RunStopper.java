@@ -1,4 +1,4 @@
-package robotUtils;
+package robot.utils;
 
 import lejos.hardware.Button;
 
@@ -31,14 +31,13 @@ public class RunStopper extends Thread {
 	public void run() {
 		//loops as long as target is running
 		while(target.isActive()) {
-			//when escape is pressed, interrupt target and stop motors immediately
+			//when only escape is pressed, interrupt target and stop motors immediately
 			if(Button.getButtons() == Button.ID_ESCAPE) {
 				while(Button.getButtons() == Button.ID_ESCAPE);
 				try {
 					target.deactivate();
 					Thread.sleep(200);
-					if (RobotStructure.getInstance() != null)
-						RobotStructure.getInstance().stopAllMotors();
+					RobotMap.getInstance().stopAllMotors();
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
