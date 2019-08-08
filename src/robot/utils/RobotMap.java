@@ -48,7 +48,6 @@ public class RobotMap {
 		
 		//sampleGyro = new GyroSensor(SensorPort.S2);
 		//sampleColor = new ColorSensor(SensorPort.S3);
-		
 	}
 	
 	

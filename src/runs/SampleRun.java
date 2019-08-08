@@ -5,7 +5,6 @@ import robot.utils.RobotRun;
 /**
  * Sample robot run
  * @author John
- *
  */
 public class SampleRun extends RobotRun{
 

@@ -19,7 +19,6 @@ public abstract class RobotRun extends Thread {
 	public void run() {
 		
 		active = true;
-		
 		LCD.clear();
 		
 		//set current run

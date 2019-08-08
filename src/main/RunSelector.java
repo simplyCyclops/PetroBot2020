@@ -13,6 +13,7 @@ import robot.utils.RobotRun;
  * Arrow is moved using the up and down buttons on the robot, select run with center button.
  * Note that the RobotStructure must be initialized here in order for it to be used in all other programs.
  * TODO: Input your run names, modify to match run count if necessary, edit startNewRun method.
+ * Feel free to replace the sample GUI with your own, as long as the start run logic is kept.
  * 
  * @author John & Wifi
  */
