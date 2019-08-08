@@ -9,7 +9,4 @@ public class Wait {
 		while(System.currentTimeMillis() - startWait < (sec*1000) && RunHandler.getCurrentRun().isActive());
 	}
 	
-	public static void waitUntil(boolean condition) {
-		while(!condition && RunHandler.getCurrentRun().isActive());
-	}
 }
