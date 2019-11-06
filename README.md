@@ -6,6 +6,8 @@ Author: John Meshulam
 
 FLL-leJOS was created with FLL teamns in mind and aims to provide an intuitive and simple way to program FLL robots using Java.
 
+### This is the stup guide! For examples and documentation, visit the Repository's Wiki!
+
 ## Should I use this?
 ### Positives
 - Simple to use and teach while installed
