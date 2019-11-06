@@ -76,3 +76,9 @@ FLL-leJOS was created with FLL teamns in mind and aims to provide an intuitive a
 3. Profit.
 4. Open Eclipse, select `Window`, `Preferences`, and enter the EV3 tab. Check `Connect to named brick` and input your brick's IP
 
+## Setting up FLL-leJOS inside Eclipse
+
+1. Inside Eclipse, right click inside the package manager and select `import`. Under the `Git` folder, use the `Projects from git (with smart import)` option (If your eclipse is older, you will not have this option. In that case, download git for windows and use git bash, or update your Eclipse)
+2. Paste the repository URL inside the first field, and finish the import. Everything will updaate automatically.
+
+For information about pushing your robot code to another repository, and using Git from Eclipse in general, check out [this guide](https://eclipsesource.com/blogs/tutorials/egit-tutorial/).
