@@ -72,7 +72,7 @@ FLL-leJOS was created with FLL teamns in mind and aims to provide an intuitive a
 
 #### Via USB
 1. Stick one end of the USB cable into the PC
-2. Stick the other end into the EV3
+2. Stick the other end of the USB cable into the EV3
 3. Profit.
 4. Open Eclipse, select `Window`, `Preferences`, and enter the EV3 tab. Check `Connect to named brick` and input your brick's IP
 
