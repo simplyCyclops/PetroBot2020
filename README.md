@@ -6,6 +6,8 @@ Author: John Meshulam
 
 FLL-leJOS was created with FLL teamns in mind and aims to provide an intuitive and simple way to program FLL robots using Java.
 
+### This is the stup guide! For examples and documentation, visit the Repository's Wiki!
+
 ## Should I use this?
 ### Positives
 - Simple to use and teach while installed
@@ -57,6 +59,28 @@ FLL-leJOS was created with FLL teamns in mind and aims to provide an intuitive a
 (If you did not install leJOS for the EV3 brick first, complete steps 1 and 2 from the EV3 setup before starting)
 1. Download eclipse from the [official website](https://www.eclipse.org/downloads/). Run the installer and select `Eclipse IDE for JAva Developers`
 2. Open eclipse, select Help -> Install new software
-3. Follow the [instructions on the leJOS wiki](https://sourceforge.net/p/lejos/wiki/Installing%20the%20Eclipse%20plugin/) to install the leJOS eclipse 
+3. Follow the [instructions on the leJOS wiki](https://sourceforge.net/p/lejos/wiki/Installing%20the%20Eclipse%20plugin/) to install the leJOS eclipse plugin
+### Connecting the EV3 to you PC
 
-# This file is still a work in progress, and will be completed soon!
+ #### Via bluetooth
+ 1. Setup your brick name and IP to something unique instead of the default `EV3` and `10.0.1.1`. This is done via the brick's on-screen menu:
+    - Select `system` and `Change name` to set the brick name
+    - Select `PAN`, `Access pt`, `Address`, `Advanced`, set your desired IP, and press the `back` button until you return to the main menu. The brick will take a few seconds to set your IP after you exit! 
+ 2. On the PC, open `Control Panel`, and select `Network and Sharing Center`. There should be a `Change adapter settings` option on the top left corner. Click it, and a new window should open.
+ 3. Inside the new vindow, click on the `Bluetooth network connection` adapter, and select  `View bluetooth network devices` from the top bar.
+    - a. If this is the **FIRST TIME** you are connecting this brick to the PC, select `Add a device`, wait for the PC to recognize it (this may take 2-3 minutes!), and complete the setup process. You will be prompted for a password which will be `1234` unless it has been changed by the user.
+4. Select your device from the menu, and click `Connect using` `Access point` from the top bar. If you completed this process corretly, a propt will show up with the Bluetooth icon and the words  `connection succcessful`
+5. Open Eclipse, select `Window`, `Preferences`, and enter the EV3 tab. Check `Connect to named brick` and input your brick's IP.
+
+#### Via USB
+1. Stick one end of the USB cable into the PC
+2. Stick the other end of the USB cable into the EV3
+3. Profit.
+4. Open Eclipse, select `Window`, `Preferences`, and enter the EV3 tab. Check `Connect to named brick` and input your brick's IP
+
+## Setting up FLL-leJOS inside Eclipse
+
+1. Inside Eclipse, right click inside the package manager and select `import`. Under the `Git` folder, use the `Projects from git (with smart import)` option (If your eclipse is older, you will not have this option. In that case, download git for windows and use git bash, or update your Eclipse)
+2. Paste the repository URL inside the first field, and finish the import. Everything will updaate automatically.
+
+For information about pushing your robot code to another repository, and using Git from Eclipse in general, check out [this guide](https://eclipsesource.com/blogs/tutorials/egit-tutorial/).
