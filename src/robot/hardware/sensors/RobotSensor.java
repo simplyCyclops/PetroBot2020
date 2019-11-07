@@ -64,7 +64,7 @@ public abstract class RobotSensor {
 	}
 
 	public void resetToCurrentValue() {
-		zeroValue = (int) this.read(5);
+		zeroValue += (int) this.read(5);
 	}
 	
 	public void resetToAbsoluteValue() {
