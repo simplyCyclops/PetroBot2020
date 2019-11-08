@@ -20,7 +20,7 @@ public class GyroFollow {
 			error = (int) (RobotMap.getSensor("gyro").read() - direction);
 			correction = (int) (error * kp + p0);
 			
-			RobotMap.getChassis().tankDrive(leftSpeed, rightSpeed);
+			RobotMap.getChassis().tankDrive(leftSpeed, rightSpeed); //should fix
 		}
 	}
 	
