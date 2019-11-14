@@ -60,6 +60,12 @@ public class Acceleration {
 			currentLSpeed += incrementL;
 			currentRSpeed += incrementR;
 
+			//clamp L speed
+			currentLSpeed = General.clampSpeed(currentLSpeed);
+
+			//clamp R speed
+			currentRSpeed = General.clampSpeed(currentRSpeed);
+			
 			//drive at new speed
 			RobotMap.getChassis().tankDrive(currentLSpeed, currentRSpeed);
 		}
