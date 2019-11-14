@@ -1,11 +1,13 @@
 package user;
 
 import user.runs.GyroCheckRun;
-import user.runs.JohnAccelerate;
+import user.runs.TestRun;
 
 public class RunCreator {
 	public static void init() {
 		new GyroCheckRun("Gyro Check");
-		new JohnAccelerate("set acceleration check");
+		
+		//this run is for testing idea on the fly | do not delete | keep at the bottom
+		new TestRun("[Test Run]"); 
 	}
 }
