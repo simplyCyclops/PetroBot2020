@@ -69,6 +69,18 @@ public class LineFollow {
 		General.stopRobot(brake);
 
 	}
+
+	/**
+	 * Follows a line for a certain distance
+	 * @param p0	the driving speed
+	 * @param distance	the distance to drive for in CM
+	 * @param light 	the light level for the sensor to follow
+	 * @param kp	the correction intensity, a high value will result in sharper turns 
+	 * @param followLeft	setting this to false will follow the right light sensor 
+	 */
+	public static void followDegrees(int p0, int distance, int light, double kp, boolean followLeft) {
+		followDegrees(p0, distance, light, kp, followLeft, true);
+	}
 	
 	/**
 	 * Follows a line for a certain distance
@@ -126,4 +138,15 @@ public class LineFollow {
 	
 	}
 	
+	/**
+	 * Follows a line for a certain distance
+	 * @param p0	the driving speed
+	 * @param time	how long to drive for in seconds
+	 * @param light 	the light level for the sensor to follow
+	 * @param kp	the correction intensity, a high value will result in sharper turns 
+	 * @param followLeft	setting this to false will follow the right light sensor 
+	 */
+	public static void followSeconds(int p0, int distance, int light, double kp, boolean followLeft) {
+		followSeconds(p0, distance, light, kp, followLeft, true);
+	}
 }
