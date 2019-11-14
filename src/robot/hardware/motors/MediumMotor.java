@@ -1,8 +1,6 @@
 package robot.hardware.motors;
 
 import lejos.hardware.motor.EV3MediumRegulatedMotor;
-import robot.runs.RunHandler;
-import robot.utils.Wait;
 
 public class MediumMotor extends RobotMotor {
 
@@ -18,14 +16,16 @@ public class MediumMotor extends RobotMotor {
 	}
 
 	@Override
-	public void forward(double speed) {
+	public void forward(double speed, double acceleration) {
+		m.setAcceleration(convertAcceleration(acceleration));
 		m.setSpeed(convertSpeed(speed));
 		if(!this.inverted) m.forward();
 		else m.backward();
 	}
 
 	@Override
-	public void backward(double speed) {
+	public void backward(double speed, double acceleration) {
+		m.setAcceleration(convertAcceleration(acceleration));
 		m.setSpeed(convertSpeed(speed));
 		if(!this.inverted) m.backward();
 		else m.forward();
@@ -40,10 +40,16 @@ public class MediumMotor extends RobotMotor {
 	public void coast() {
 		m.flt();
 	}
+	
+	@Override
+	public void setStallThreshold(int error, int time) {
+		m.setStallThreshold(error, time);
+	}
 
 	@Override
 	public int readEncoder() {
-		return m.getTachoCount();
+		if (!this.inverted) return m.getTachoCount();
+		else return (-m.getTachoCount());
 	}
 
 	@Override
@@ -55,49 +61,40 @@ public class MediumMotor extends RobotMotor {
 	public boolean isStalled() {
 		return m.isStalled();
 	}
-
+	
 	@Override
-	protected int convertSpeed(double speed) {
-		if (speed > 1.0 || speed < -1.0) throw new IllegalArgumentException("Speed must be between 1 and -1!");
-		return (int) Math.min(Math.max((Math.abs(speed) * m.getMaxSpeed()), 0), m.getMaxSpeed());
+	public float getMaxSpeed() {
+		return m.getMaxSpeed();
 	}
-
+	
 	@Override
-	public void rotateDegrees(double speed, int degrees, boolean brake) {
-		if (degrees < 0) throw new IllegalArgumentException("Degrees must be positive!");
-		m.resetTachoCount();
-
-		if (speed >= 0) {
-			this.forward(speed);
-			Wait.waitFor(() -> {
-				return Math.abs(m.getTachoCount()) < degrees;
-			});
-		} else {
-			this.backward(speed);
-			Wait.waitFor(() -> {
-				return -Math.abs(m.getTachoCount()) > degrees;
-			});
-		}
-
-		if (brake) this.brake();
-		else this.coast();
+	public boolean shouldBeMoving() {
+		return m.isMoving();
 	}
-
+	
 	@Override
-	public void rotateSeconds(double speed, double seconds, boolean brake) {
-		m.resetTachoCount();
-		long startTime = System.currentTimeMillis();
-
-		if (speed >= 0)
-			this.forward(speed);
-		else
-			this.backward(speed);
-
-		while (System.currentTimeMillis() - startTime < seconds * 1000 && RunHandler.isRunning())
-			;
-
-		if (brake) this.brake();
-		else this.coast();
+	public void setSpeed(double speed) {
+		m.setSpeed(convertSpeed(speed));
+	}
+	
+	@Override
+	public void setAcceleration(double acceleration) {
+		m.setAcceleration(convertAcceleration(acceleration));
+	}
+	
+	@Override
+	public double getTargetSpeed() {
+		return this.revertSpeed(m.getSpeed());
+	}
+	
+	@Override
+	public double getCurrentSpeed() {
+		return this.revertSpeed(m.getRotationSpeed());
+	}
+	
+	@Override
+	public double getAcceleration() {
+		return this.revertAcceleration(m.getAcceleration());
 	}
 
 }

@@ -4,6 +4,7 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.Port;
 import robot.RobotMap;
 import robot.exceptions.HardwareCreationError;
+import robot.runs.RunHandler;
 
 public abstract class RobotMotor {
 	
@@ -13,7 +14,7 @@ public abstract class RobotMotor {
 	
 	private char portName;
 	protected Port port;
-	
+
 	public RobotMotor(String motorName, MotorType motorType, char portName) {
 		this(motorName, motorType, portName, false);
 	}
@@ -65,17 +66,136 @@ public abstract class RobotMotor {
 	}
 	
 	public void drive(double speed) {
-		if (speed > 0) this.forward(speed);
-		else this.backward(-speed);
+		this.drive(speed, 1.0);
 	}
 	
-	protected abstract int convertSpeed(double speed);
+	public void drive(double speed, double acceleration) {
+		if (speed > 0) this.forward(speed, acceleration);
+		else this.backward(-speed, acceleration);
+	}
 	
-	public abstract void forward(double speed);
+	protected int convertAcceleration(double acceleration) {
+		if (acceleration > 1.0 || acceleration < 0) throw new IllegalArgumentException("Acceleration must be between 0 and 1!");
+		return (int) acceleration * 6000;
+	}
 	
-	public abstract void backward(double speed);
+	protected double revertAcceleration(int acceleration) {
+		return (double) acceleration / 6000;
+	}
+	
+	protected int convertSpeed(double speed) {
+		if (speed > 1.0 || speed < -1.0) throw new IllegalArgumentException("Speed must be between 1 and -1!");
+		return (int) Math.min(Math.max((Math.abs(speed) * this.getMaxSpeed()), 0), this.getMaxSpeed());
+	}
+	
+	protected double revertSpeed(int speed) {
+		return (double) speed / this.getMaxSpeed();
+	}
+	
+	public void rotateToZero(double speed, boolean brake) {
+		this.rotateToValue(speed, 1.0, 0, brake);
+	}
+	
+	public void rotateToZero(double speed, double acceleration, boolean brake) {
+		this.rotateToValue(speed, acceleration, 0, brake);
+	}
+	
+	public void rotateToValue(double speed, double acceleration, int value, boolean brake) {
+		
+		if (this.readEncoder() < value) {
+			this.forward(speed, acceleration);
+			//HOTFIX
+			while(this.readEncoder() < value && RunHandler.isRunning());
+//			Wait.waitFor(() -> {
+//				return this.readEncoder() >= value;
+//			});
+		} else {
+			this.backward(speed, acceleration);
+			//HOTFIX
+			while(this.readEncoder() > value && RunHandler.isRunning());
+//			Wait.waitFor(() -> {
+//				return this.readEncoder() <= value;
+//			});
+		}
+		
+		if (brake) this.brake();
+		else this.coast();
+	}
+	
+	public void rotateDegrees(double speed, int degrees, boolean brake) {
+		this.rotateDegrees(speed, 1.0, degrees,  brake);
+	}
+	
+	public void rotateDegrees(double speed, double acceleration, int degrees, boolean brake) {
+		if (degrees < 0) throw new IllegalArgumentException("Degrees must be positive!");
+		int startValue = this.readEncoder();
+
+		if (speed >= 0) {
+			this.forward(speed, acceleration);
+			//HOTFIX
+			while(this.readEncoder() < startValue + degrees && RunHandler.isRunning());
+//			Wait.waitFor(() -> {
+//				return this.readEncoder() > startValue + degrees;
+//			});
+		} else {
+			this.backward(speed, acceleration);
+			//HOTFIX
+			while(this.readEncoder() > startValue + degrees && RunHandler.isRunning());
+//			Wait.waitFor(() -> {
+//				return this.readEncoder() < startValue - degrees;
+//			});
+		}
+
+		if (brake) this.brake();
+		else this.coast();
+	}
+	
+	public void rotateSeconds(double speed, double seconds, boolean brake) {
+		this.rotateSeconds(speed, 1.0, seconds, brake);
+	}
+	
+	public void rotateSeconds(double speed, double acceleration, double seconds, boolean brake) {
+		long startTime = System.currentTimeMillis();
+
+		if (speed >= 0)
+			this.forward(speed, acceleration);
+		else
+			this.backward(speed, acceleration);
+
+		while (System.currentTimeMillis() - startTime < seconds * 1000 && RunHandler.isRunning())
+			;
+
+		if (brake) this.brake();
+		else this.coast();
+	}
+	
+	public void forward(double speed) {
+		this.forward(speed, 1.0);
+	}
+	
+	public void backward(double speed) {
+		this.backward(speed, 1.0);
+	}
+	
+	public abstract void forward(double speed, double acceleration);
+	
+	public abstract void backward(double speed, double acceleration);
 	
 	public abstract void brake(boolean immediateReturn);
+	
+	public abstract void setStallThreshold(int error, int time);
+	
+	public abstract void setSpeed(double speed);
+	
+	public abstract void setAcceleration(double acceleration);
+	
+	public abstract double getCurrentSpeed();
+	
+	public abstract double getTargetSpeed();
+	
+	public abstract double getAcceleration();
+	
+	public abstract boolean shouldBeMoving();
 	
 	public abstract void coast();
 	
@@ -85,8 +205,6 @@ public abstract class RobotMotor {
 	
 	public abstract boolean isStalled();
 	
-	public abstract void rotateDegrees(double speed, int degrees, boolean brake);
+	public abstract float getMaxSpeed();
 	
-	public abstract void rotateSeconds(double speed, double seconds, boolean brake);
-
 }

@@ -2,6 +2,7 @@ package robot.hardware.chassis;
 
 import robot.RobotMap;
 import robot.hardware.motors.LargeMotor;
+import robot.runs.RunHandler;
 import robot.utils.Wait;
 
 public class RobotChassis implements Chassis{
@@ -49,9 +50,11 @@ public class RobotChassis implements Chassis{
 		
 		syncDrive(speed, speed);
 		
-		Wait.waitFor(() -> {
-			return leftMotor.readEncoder() > degrees;
-		});
+		//HOTFIX
+		while(leftMotor.readEncoder() < degrees && RunHandler.isRunning());
+//		Wait.waitFor(() -> {
+//			return leftMotor.readEncoder() > degrees;
+//		});
 		
 		if (brake) this.brake();
 		else this.coast();
@@ -64,9 +67,11 @@ public class RobotChassis implements Chassis{
 		
 		syncDrive(-speed, -speed);
 		
-		Wait.waitFor(() -> {
-			return leftMotor.readEncoder() < -degrees;
-		});
+		//HOTFIX
+		while(leftMotor.readEncoder() > -degrees && RunHandler.isRunning());
+//		Wait.waitFor(() -> {
+//			return leftMotor.readEncoder() < -degrees;
+//		});
 		
 		if (brake) this.brake();
 		else this.coast();
@@ -100,15 +105,19 @@ public class RobotChassis implements Chassis{
 	@Override
 	public void tankDrive(double leftSpeed, double rightSpeed, int degrees, boolean brake) {
 		if (degrees < 0) throw new IllegalArgumentException("Degrees must be positive!");
-		leftMotor.resetEncoder();
-		rightMotor.resetEncoder();
+		int leftStartValue = leftMotor.readEncoder();
+		int rightStartValue = rightMotor.readEncoder();
 		
 		syncDrive(leftSpeed, rightSpeed);
 		
-		Wait.waitFor(() -> {
-			return (Math.abs(leftMotor.readEncoder()) > degrees 
-					|| Math.abs(rightMotor.readEncoder()) > degrees);
-		});
+		//HOTFIX
+		while(Math.abs(leftMotor.readEncoder()) < Math.abs(leftStartValue) + degrees 
+				&& Math.abs(rightMotor.readEncoder()) > Math.abs(rightStartValue) + degrees 
+				&& RunHandler.isRunning());
+//		Wait.waitFor(() -> {
+//			return (Math.abs(leftMotor.readEncoder()) > degrees 
+//					|| Math.abs(rightMotor.readEncoder()) > degrees);
+//		});
 		
 		if (brake) this.brake();
 		else this.coast();
