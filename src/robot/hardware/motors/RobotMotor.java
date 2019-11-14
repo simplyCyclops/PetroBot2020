@@ -187,7 +187,7 @@ public abstract class RobotMotor {
 	
 	public abstract void setSpeed(double speed);
 	
-	public abstract void setAcceleration(double acceleration);
+	protected abstract void setAcceleration(double acceleration);
 	
 	public abstract double getCurrentSpeed();
 	
