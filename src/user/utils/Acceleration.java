@@ -37,31 +37,35 @@ public class Acceleration {
 	 */
 	public static void tankAccelerateSeconds(Accelerator leftSpeeds, Accelerator rightSpeeds,
 										double seconds, boolean brake) {
-
+		
+		//sets up current speed vars at start speed
 		double currentLSpeed = leftSpeeds.getStartSpeed();
 		double currentRSpeed = rightSpeeds.getStartSpeed();
 
+		//calculates how much to add to speed every iteration 
 		double incrementL = (leftSpeeds.getTargetSpeed() - leftSpeeds.getStartSpeed()) / seconds;
 		double incrementR = (rightSpeeds.getTargetSpeed() - rightSpeeds.getStartSpeed()) / seconds;
 
-		double delay = 0.25;
+		double delay = 0.25; //the delay between iterations
 
+		//start drive
 		RobotMap.getChassis().tankDrive(currentLSpeed, currentRSpeed);
 
+		//drive until time is up
 		for (int i = 0; i < seconds / delay; i++) {
 
-			Wait.waitForSeconds(delay);
+			Wait.waitForSeconds(delay); //wait for delay
 
+			 //increase speeds
 			currentLSpeed += incrementL;
 			currentRSpeed += incrementR;
 
+			//drive at new speed
 			RobotMap.getChassis().tankDrive(currentLSpeed, currentRSpeed);
 		}
 		
-		if(brake)
-			RobotMap.getChassis().brake();
-		else
-			RobotMap.getChassis().coast();
+		//stop
+		General.stopRobot(brake);
 		
 	}
 
@@ -76,34 +80,42 @@ public class Acceleration {
 	public static void tankAccelerateCentimeters(Accelerator leftSpeeds, Accelerator rightSpeeds,
 										int centimeters, boolean brake) {
 
+		//sets up current speed vars at start speed
 		double currentLSpeed = leftSpeeds.getStartSpeed();
 		double currentRSpeed = rightSpeeds.getStartSpeed();
 
+		//calculates how much to add to speed every iteration 
 		double incrementL = (leftSpeeds.getTargetSpeed() - leftSpeeds.getStartSpeed()) / centimeters;
 		double incrementR = (rightSpeeds.getTargetSpeed() - rightSpeeds.getStartSpeed()) / centimeters;
 
-		double delay = 0.25;
+		double delay = 0.25; //the delay between iterations in cm
 
+		//start drive
 		RobotMap.getChassis().tankDrive(currentLSpeed, currentRSpeed);
 
+		//drive until distance is reached
 		for (int i = 0; i < centimeters / delay; i++) {
 
 			if(centimeters % delay == 0) {
 
+				//increase speeds
 				currentLSpeed += incrementL;
 				currentRSpeed += incrementR;
 
+				//drive at new speed
 				RobotMap.getChassis().tankDrive(currentLSpeed, currentRSpeed);
 				
 			}
 
 		}
-		if(brake)
-			RobotMap.getChassis().brake();
-		else
-			RobotMap.getChassis().coast();
+		//stop
+		General.stopRobot(brake);
 	}
 	
+	/**
+	 * An object that stores a start speed and target speed for the acceleration functions
+	 *
+	 */
 	public class Accelerator {
 		
 		public Accelerator(double start, double target) {
