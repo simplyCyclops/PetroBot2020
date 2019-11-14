@@ -9,10 +9,10 @@ public class GyroFollow {
 	 * Follows a certain direction in degrees based on the gyro sensor
 	 * 	for a certain distance
 	 * @param p0 the driving speed
-	 * @param distance the distance to drive in cm
+	 * @param distance the distance to drive for in CM
 	 * @param direction	the gyro degree the robot should follow
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param brake	true - brake at the end, false - coast at the end
 	 * @param isInverted Whether or not the gyro sensor in upside - down
 	 */
 	public static void followDegrees(int p0, int distance, int direction, double kp, boolean brake, 
@@ -64,13 +64,13 @@ public class GyroFollow {
 	 * 	for a certain amount of time
 	 * 
 	 * @param p0 the driving speed
-	 * @param seconds how long to drive for in seconds
+	 * @param time how long to drive for in seconds
 	 * @param direction	the gyro degree the robot should follow
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param brake	true - brake at the end, false - coast at the end
 	 * @param isInverted Whether or not the gyro sensor in upside - down
 	 */
-	public static void followSeconds(int p0, double seconds, int direction, double kp, boolean brake, 
+	public static void followSeconds(int p0, double time, int direction, double kp, boolean brake, 
 			boolean isInverted) {
 		
 		//set up error and correction vars
@@ -84,7 +84,7 @@ public class GyroFollow {
 		RobotMap.getChassis().tankDrive(p0, p0);
 		
 		//drive until time is up
-		for (int i = 0; i < seconds / delay; i++) {
+		for (int i = 0; i < time / delay; i++) {
 			
 			Wait.waitForSeconds(delay);
 			
@@ -149,7 +149,7 @@ public class GyroFollow {
 	 * @param distance the distance to drive in cm
 	 * @param direction	the gyro degree the robot should follow
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param brake	true - brake at the end, false - coast at the end
 	 */
 	public static void followDegrees(int p0, int distance, int direction, double kp, boolean brake) {
 		followDegrees(p0, distance, direction, kp, brake, false);
@@ -163,7 +163,7 @@ public class GyroFollow {
 	 * @param seconds how long to drive for in seconds
 	 * @param direction	the gyro degree the robot should follow
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param brake	true - brake at the end, false - coast at the end
 	 */
 	public static void followSeconds(int p0, double seconds, int direction, double kp, boolean brake) {
 		followSeconds(p0, seconds, direction, kp, brake, false);

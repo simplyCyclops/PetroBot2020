@@ -9,11 +9,11 @@ public class Acceleration {
 	 * Accelerates or decelerates both wheels together over a certain period of time
 	 * 
 	 * @param speeds	The starting and target speeds of the wheels
-	 * @param seconds   The time it should take to get from startSpeed to targetSpeed
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param time   The time it should take to get from startSpeed to targetSpeed
+	 * @param brake	true - brake at the end, false - coast at the end
 	 */
-	public static void accelerateSeconds(Accelerator speeds, double seconds, boolean brake) {
-		tankAccelerateSeconds(speeds, speeds, seconds, brake);
+	public static void accelerateSeconds(Accelerator speeds, double time, boolean brake) {
+		tankAccelerateSeconds(speeds, speeds, time, brake);
 	}
 
 	/**
@@ -21,7 +21,7 @@ public class Acceleration {
 	 * 
 	 * @param speeds	The starting and target speeds of the wheels
 	 * @param centimeters   The distance it should take to get from startSpeed to targetSpeed
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param brake	true - brake at the end, false - coast at the end
 	 */
 	public static void accelerateCentimeters(Accelerator speeds, double centimeters, boolean brake) {
 		tankAccelerateSeconds(speeds, speeds, centimeters, brake);
@@ -32,19 +32,19 @@ public class Acceleration {
 	 * 
 	 * @param leftSpeeds  The starting and target speeds for the left wheel
 	 * @param rightSpeeds The starting and target speeds for the right wheel
-	 * @param seconds	The time it should take to get from startSpeed to targetSpeed
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param time	The time it should take to get from startSpeed to targetSpeed
+	 * @param brake	true - brake at the end, false - coast at the end
 	 */
 	public static void tankAccelerateSeconds(Accelerator leftSpeeds, Accelerator rightSpeeds,
-										double seconds, boolean brake) {
+										double time, boolean brake) {
 		
 		//sets up current speed vars at start speed
 		double currentLSpeed = leftSpeeds.getStartSpeed();
 		double currentRSpeed = rightSpeeds.getStartSpeed();
 
 		//calculates how much to add to speed every iteration 
-		double incrementL = (leftSpeeds.getTargetSpeed() - leftSpeeds.getStartSpeed()) / seconds;
-		double incrementR = (rightSpeeds.getTargetSpeed() - rightSpeeds.getStartSpeed()) / seconds;
+		double incrementL = (leftSpeeds.getTargetSpeed() - leftSpeeds.getStartSpeed()) / time;
+		double incrementR = (rightSpeeds.getTargetSpeed() - rightSpeeds.getStartSpeed()) / time;
 
 		double delay = 0.25; //the delay between iterations
 
@@ -52,7 +52,7 @@ public class Acceleration {
 		RobotMap.getChassis().tankDrive(currentLSpeed, currentRSpeed);
 
 		//drive until time is up
-		for (int i = 0; i < seconds / delay; i++) {
+		for (int i = 0; i < time / delay; i++) {
 
 			Wait.waitForSeconds(delay); //wait for delay
 
@@ -81,7 +81,7 @@ public class Acceleration {
 	 * @param leftSpeeds  The starting and target speeds for the left wheel
 	 * @param rightSpeeds The starting and target speeds for the right wheel
 	 * @param centimeters	The distance it should take to get from startSpeed to targetSpeed
-	 * @param brake	Whether or not the robot should brake at the end
+	 * @param brake	true - brake at the end, false - coast at the end
 	 */
 	public static void tankAccelerateCentimeters(Accelerator leftSpeeds, Accelerator rightSpeeds,
 										int centimeters, boolean brake) {
