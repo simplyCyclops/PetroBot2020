@@ -30,8 +30,8 @@ public class GyroFollow {
 		RobotMap.getChassis().tankDrive(p0, p0);
 		
 		//drive until distance is reached
-		while(Math.abs(RobotMap.getMotor("lWheel").readEncoder()) < Conversion.cmToDegrees(distance) 
-				|| Math.abs(RobotMap.getMotor("lWheel").readEncoder()) < Conversion.cmToDegrees(distance)) {
+		while(Math.abs(RobotMap.getMotor("lWheel").readEncoder()) < General.Conversion.cmToDegrees(distance) 
+				|| Math.abs(RobotMap.getMotor("lWheel").readEncoder()) < General.Conversion.cmToDegrees(distance)) {
 			
 			//get the error of the direction
 			error = (int) (RobotMap.getSensor("gyro").read() - direction);
@@ -87,6 +87,12 @@ public class GyroFollow {
 			//calculate the correction
 			correction = (int) (error * kp);
 			
+			//check if speed accedes max speed and slow down other wheel instead if it is 
+			if(p0 + correction > 1 || p0 + correction < -1) {
+				correction = -correction;
+				isInverted = !isInverted;
+			}
+			
 			//correct the robot's direction
 			if(!isInverted)
 				RobotMap.getChassis().tankDrive(p0, p0 + correction);
@@ -95,10 +101,7 @@ public class GyroFollow {
 		}
 		
 		//stop
-		if(brake) {
-			RobotMap.getChassis().brake();
-		} else
-			RobotMap.getChassis().coast();
+		General.stopRobot(brake);
 
 	}
 
