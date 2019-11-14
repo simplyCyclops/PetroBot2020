@@ -11,7 +11,7 @@ public class JohnAccelerate extends RobotRun{
 
 	@Override
 	public void runInstructions() {
-		RobotMap.getMotor("rArm").rotateSeconds(0.8, 0.6, 4, true);
+		RobotMap.getMotor("rArm").rotateSeconds(.7, .1, 4, true);
 	}
 
 }
