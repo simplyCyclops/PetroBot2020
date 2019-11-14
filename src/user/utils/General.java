@@ -4,6 +4,18 @@ import robot.RobotMap;
 
 public class General {
 	
+	public static void stopRobot(boolean brake) {
+		if(brake) RobotMap.getChassis().brake();
+		else RobotMap.getChassis().coast();
+	}
+	
+	public static double clampSpeed(double speed) {
+		if(speed > 1) speed = 1;
+		else if(speed < -1) speed = -1;
+		
+		return speed;
+	}
+	
 	public static class Conversion {
 
 		static double defaultDiameter = 6.24;
@@ -28,11 +40,6 @@ public class General {
 			defaultDiameter = diameter;
 		}
 		
-	}
-	
-	public static void stopRobot(boolean brake) {
-		if(brake) RobotMap.getChassis().brake();
-		else RobotMap.getChassis().coast();
 	}
 	
 }
