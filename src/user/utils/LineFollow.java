@@ -2,9 +2,11 @@ package user.utils;
 
 
 import robot.RobotMap;
-
+import robot.runs.RunHandler;
 import robot.runs.parallel.Action;
 import robot.runs.parallel.Parallel;
+import robot.utils.Wait;
+import robot.utils.WaitCondition;
 
 public class LineFollow {
 	
@@ -17,7 +19,7 @@ public class LineFollow {
 	 * @param followLeft	setting this to false will follow the right light sensor 
 	 * @param brake 	true - brake at the end, false - coast at the end
 	 */
-	public static void followDegrees(int p0, int distance, int light, double kp, boolean followLeft,
+	public static void followDegrees(double p0, int distance, int light, double kp, boolean followLeft,
 			boolean brake) {
 		
 		//reset the wheels' rotation sensor
@@ -42,8 +44,8 @@ public class LineFollow {
 			correctionMod = 1; //sets the correction modifier to add speed
 			
 			//if sensor is on color - move in opposite direction
-			if(RobotMap.getSensor(sensor).read() < light + 0.05
-					|| RobotMap.getSensor(sensor).read() > light - 0.05) {
+			if(RobotMap.getSensor(sensor).read() < light + 5
+					|| RobotMap.getSensor(sensor).read() > light - 5) {
 				followLeft = true;
 			}
 			//if sensor is not on color move toward color
@@ -78,7 +80,7 @@ public class LineFollow {
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
 	 * @param followLeft	setting this to false will follow the right light sensor 
 	 */
-	public static void followDegrees(int p0, int distance, int light, double kp, boolean followLeft) {
+	public static void followDegrees(double p0, int distance, int light, double kp, boolean followLeft) {
 		followDegrees(p0, distance, light, kp, followLeft, true);
 	}
 	
@@ -91,7 +93,7 @@ public class LineFollow {
 	 * @param followLeft	setting this to false will follow the right light sensor 
 	 * @param brake 	true - brake at the end, false - coast at the end
 	 */
-	public static void followSeconds(int p0, double time, int light, double kp, boolean followLeft,
+	public static void followSeconds(double p0, double time, int light, double kp, boolean followLeft,
 			boolean brake) {
 			
 		String sensor = "lColor";
@@ -106,13 +108,13 @@ public class LineFollow {
 		long targetTime = (long) (System.currentTimeMillis() + (time * 1000)); 
 		
 		//drive until time is up
-		while (targetTime > System.currentTimeMillis()) {
+		while (targetTime > System.currentTimeMillis() && RunHandler.isRunning()) {
 			
 			correctionMod = 1; //sets the correction modifier to add speed
 			
 			//if sensor is on color - move in opposite direction
-			if(RobotMap.getSensor(sensor).read() < light + 0.05
-					|| RobotMap.getSensor(sensor).read() > light - 0.05) {
+			if(RobotMap.getSensor(sensor).read() < light + 5
+					|| RobotMap.getSensor(sensor).read() > light - 5) {
 				followLeft = true;
 			}
 			//if sensor is not on color move toward color
@@ -146,7 +148,27 @@ public class LineFollow {
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
 	 * @param followLeft	setting this to false will follow the right light sensor 
 	 */
-	public static void followSeconds(int p0, int distance, int light, double kp, boolean followLeft) {
+	public static void followSeconds(double p0, int distance, int light, double kp, boolean followLeft) {
 		followSeconds(p0, distance, light, kp, followLeft, true);
 	}
+
+	public static void untilColor(double leftSpeed, double rightSpeed, int light, boolean followLeft,
+			boolean brake) {
+		
+		//determine the sensor to be followed
+		String sensor = "lColor";
+		if(!followLeft) sensor = "rightColor";
+		
+		//start drive
+		RobotMap.getChassis().tankDrive(leftSpeed, rightSpeed);
+		
+		//wait until chosen sensor sees light
+		while((RobotMap.getSensor("lColor").read() > light + 0.05
+				|| RobotMap.getSensor("lColor").read() < light - 0.05)
+				&& RunHandler.isRunning()) {}
+		
+		//stop
+		General.stopRobot(brake);
+	}
+	
 }
