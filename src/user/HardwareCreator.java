@@ -1,5 +1,6 @@
 package user;
 
+import robot.RobotMap;
 import robot.hardware.chassis.RobotChassis;
 import robot.hardware.motors.LargeMotor;
 import robot.hardware.sensors.ColorSensor;
@@ -16,5 +17,6 @@ public class HardwareCreator {
 		
 		new ColorSensor("lColor", 2);
 		new ColorSensor("rColor", 3);
+
 	}
 }
