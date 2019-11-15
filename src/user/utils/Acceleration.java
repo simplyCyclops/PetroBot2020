@@ -128,7 +128,7 @@ public class Acceleration {
 	 * An object that stores a start speed and target speed for the acceleration functions
 	 *
 	 */
-	public class Accelerator {
+	public static class Accelerator {
 		
 		public Accelerator(double start, double target) {
 			this.start = start;
