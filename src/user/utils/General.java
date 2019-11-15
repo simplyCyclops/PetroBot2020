@@ -16,6 +16,19 @@ public class General {
 		return speed;
 	}
 	
+	public static class Hardware{
+		public static String leftWheel = "lWheel";
+		public static String rightWheel = "rWheel";
+		
+		public static String leftArm = "lArm";
+		public static String rightArm = "rArm";
+		
+		public static String leftColor = "lColor";
+		public static String rightColor = "rColor";
+		
+		public static String gyro = "gyro";
+	}
+	
 	public static class Conversion {
 
 		static double defaultDiameter = 6.24;
