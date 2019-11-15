@@ -10,8 +10,6 @@ public class LineFollow {
 	static double white = 1;
 	static double target = (black + white) / 2;
 	
-	//TODO: update line follower to fit the new follow function
-	
 	/**
 	 * Follows a line 
 	 * @param p0	the driving speed
@@ -136,8 +134,49 @@ public class LineFollow {
 		General.stopRobot(brake);
 	}
 	
+	/**
+	 * tank drives until sees line
+	 * @param leftSpeed the speed for the left wheel
+	 * @param rightSpeed the speed for the right wheel
+	 * @param sensor the sensor to be used
+	 */
 	public static void untilLine(double leftSpeed, double rightSpeed, String sensor) {
 		untilLine(leftSpeed, rightSpeed, sensor, true);
+	}
+	
+	/**
+	 * straightens on a line
+	 * @param p0 the driving speed
+	 * @param sensor the sensor to be used
+	 * @param brake true - brake at the end, false - coast at the end
+	 */
+	public static void straighten(double p0, String sensor, boolean brake) {
+		
+		if(RobotMap.getSensor(sensor).read() > target + 0.01
+				|| RobotMap.getSensor(sensor).read() > target + 0.01) {
+			untilLine(p0, p0, sensor, false);
+		}
+		
+		String wheel = "lWheel";
+		if(sensor.equalsIgnoreCase("rColor")) wheel = "rWheel";
+		
+		RobotMap.getMotor(wheel).drive(p0);
+		
+		while((RobotMap.getSensor(sensor).read() > target + 0.01
+				|| RobotMap.getSensor(sensor).read() < target - 0.01)
+				&& RunHandler.isRunning()) {}
+		
+		General.stopRobot(brake);
+		
+	}
+	
+	/**
+	 * straightens on a line
+	 * @param p0 the driving speed
+	 * @param sensor the sensor to be used
+	 */
+	public static void straighten(double p0, String sensor) {
+		straighten(p0, sensor, true);
 	}
 	
 }
