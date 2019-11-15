@@ -1,6 +1,5 @@
 package user;
 
-import robot.RobotMap;
 import robot.hardware.chassis.RobotChassis;
 import robot.hardware.motors.LargeMotor;
 import robot.hardware.sensors.ColorSensor;
