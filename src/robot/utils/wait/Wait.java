@@ -1,13 +1,14 @@
-package robot.utils;
+package robot.utils.wait;
 
 import lejos.utility.Delay;
 import robot.runs.RunHandler;
+import robot.utils.Condition;
 
 public class Wait {
 
 	private Wait() {}
 	
-	public static void waitFor(WaitCondition condition) {
+	public static void waitFor(Condition condition) {
 		while(!condition.evaluate() && RunHandler.isRunning()) {
 			Delay.msDelay(1); //Does not work if not present
 			//TODO: investigate
