@@ -1,7 +1,7 @@
 package user.utils;
 
 import robot.RobotMap;
-import robot.utils.Wait;
+import robot.utils.wait.Wait;
 
 public class GyroFollow {
 
@@ -15,7 +15,7 @@ public class GyroFollow {
 	 * @param brake	true - brake at the end, false - coast at the end
 	 * @param isInverted Whether or not the gyro sensor in upside - down
 	 */
-	public static void followDegrees(int p0, int distance, int direction, double kp, boolean brake, 
+	public static void followDegrees(double p0, int distance, int direction, double kp, boolean brake, 
 			boolean isInverted) {
 		
 		//set up error and correction vars
@@ -46,9 +46,9 @@ public class GyroFollow {
 			
 			//correct the robot's direction
 			if(!isInverted)
-				RobotMap.getChassis().tankDrive(p0, p0 + correction);
+				RobotMap.getChassis().tankDrive(p0, General.clampSpeed(p0 + correction));
 			else
-				RobotMap.getChassis().tankDrive(p0 + correction, p0);
+				RobotMap.getChassis().tankDrive(General.clampSpeed(p0 + correction), p0);
 		}
 		
 		//stop
@@ -70,7 +70,7 @@ public class GyroFollow {
 	 * @param brake	true - brake at the end, false - coast at the end
 	 * @param isInverted Whether or not the gyro sensor in upside - down
 	 */
-	public static void followSeconds(int p0, double time, int direction, double kp, boolean brake, 
+	public static void followSeconds(double p0, double time, int direction, double kp, boolean brake, 
 			boolean isInverted) {
 		
 		//set up error and correction vars
@@ -107,9 +107,9 @@ public class GyroFollow {
 			
 			//correct the robot's direction
 			if(!isInverted)
-				RobotMap.getChassis().tankDrive(p0, p0 + correction);
+				RobotMap.getChassis().tankDrive(p0, General.clampSpeed(p0 + correction));
 			else
-				RobotMap.getChassis().tankDrive(p0 + correction, p0);
+				RobotMap.getChassis().tankDrive(General.clampSpeed(p0 + correction), p0);
 		}
 		
 		//stop
@@ -125,7 +125,7 @@ public class GyroFollow {
 	 * @param direction	the gyro degree the robot should follow
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
 	 */
-	public static void followDegrees(int p0, int distance, int direction, double kp) {
+	public static void followDegrees(double p0, int distance, int direction, double kp) {
 		followDegrees(p0, distance, direction, kp, false, false);
 	}
 	
@@ -138,7 +138,7 @@ public class GyroFollow {
 	 * @param direction	the gyro degree the robot should follow
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
 	 */
-	public static void followSeconds(int p0, double seconds, int direction, double kp) {
+	public static void followSeconds(double p0, double seconds, int direction, double kp) {
 		followSeconds(p0, seconds, direction, kp, false, false);
 	}
 	
@@ -151,7 +151,7 @@ public class GyroFollow {
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
 	 * @param brake	true - brake at the end, false - coast at the end
 	 */
-	public static void followDegrees(int p0, int distance, int direction, double kp, boolean brake) {
+	public static void followDegrees(double p0, int distance, int direction, double kp, boolean brake) {
 		followDegrees(p0, distance, direction, kp, brake, false);
 	}
 	
@@ -165,7 +165,7 @@ public class GyroFollow {
 	 * @param kp	the correction intensity, a high value will result in sharper turns 
 	 * @param brake	true - brake at the end, false - coast at the end
 	 */
-	public static void followSeconds(int p0, double seconds, int direction, double kp, boolean brake) {
+	public static void followSeconds(double p0, double seconds, int direction, double kp, boolean brake) {
 		followSeconds(p0, seconds, direction, kp, brake, false);
 	}
 }
