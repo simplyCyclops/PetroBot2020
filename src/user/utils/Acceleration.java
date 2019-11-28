@@ -1,8 +1,7 @@
 package user.utils;
 
 import robot.RobotMap;
-import robot.hardware.motors.RobotMotor;
-import robot.utils.Wait;
+import robot.utils.wait.Wait;
 
 public class Acceleration {
 
