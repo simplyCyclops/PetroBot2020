@@ -4,7 +4,7 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import robot.RobotMap;
 import robot.runs.RobotRun;
-import robot.utils.wait.Wait;
+import robot.utils.Wait;
 
 public class GyroCheckRun extends RobotRun{
 

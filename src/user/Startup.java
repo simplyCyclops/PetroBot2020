@@ -9,6 +9,7 @@ import user.runs.Run2;
 import user.runs.Run4;
 import user.runs.Run5;
 import user.runs.TestRun;
+import user.utils.GyroFollow;
 
 public class Startup {
 	
@@ -37,6 +38,7 @@ public class Startup {
 	public static void init() {
 		//code that you want to run ONCE 
 		//before the main menu starts
+		GyroFollow.followDegrees(0.1, 0.9, 0.012, 0.012, 200, 0, true);
 	}
 	
 }

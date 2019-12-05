@@ -2,16 +2,16 @@ package user.utils;
 
 import robot.RobotMap;
 import robot.utils.Condition;
-import robot.utils.wait.Wait;
+import robot.utils.Wait;
 
 public class GyroTurn {
 
 	public static void turnInPlace(double lSpeed, int gyroDegrees, boolean brake) {
-		turn(lSpeed, -lSpeed, gyroDegrees, brake);
+		turn(lSpeed, -lSpeed, 1, gyroDegrees, brake);
 	}
 	
-	public static void turn(double lSpeed, double rSpeed, int gyroDegrees, boolean brake) {
-		RobotMap.getChassis().tankDrive(lSpeed, rSpeed);
+	public static void turn(double lSpeed, double rSpeed, double acceleration, int gyroDegrees, boolean brake) {
+		RobotMap.getChassis().tankDrive(lSpeed, rSpeed, acceleration);
 
 		if (RobotMap.getSensor("gyro").read() > gyroDegrees) {
 			Wait.waitFor(new Condition() {
