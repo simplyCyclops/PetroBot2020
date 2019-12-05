@@ -7,6 +7,7 @@ import robot.hardware.sensors.GyroSensor;
 import user.runs.GyroCheckRun;
 import user.runs.Run2;
 import user.runs.Run4;
+import user.runs.Run5;
 import user.runs.TestRun;
 
 public class Startup {
@@ -27,6 +28,7 @@ public class Startup {
 		new GyroCheckRun("Gyro Check");
 		new Run2("Run 2");
 		new Run4("Run 4");
+		new Run5("Run 5");
 		
 		//this run is for testing idea on the fly | do not delete | keep at the bottom
 		new TestRun("[Test Run]"); 
