@@ -14,7 +14,7 @@ public class GyroFollow {
 				@Override
 				public boolean evaluate() {
 					return (RobotMap.getMotor("lWheel").readEncoder() < degrees 
-							&& RobotMap.getMotor("rWheel").readEncoder() < degrees);
+							|| RobotMap.getMotor("rWheel").readEncoder() < degrees);
 				}
 			}.loopEvaluate()) {	
 				error = (int) (RobotMap.getSensor("gyro").read() - target);
