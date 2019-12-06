@@ -31,7 +31,7 @@ public class General {
 	
 	public static class Conversion {
 
-		static double defaultDiameter = 6.24;
+		static double defaultDiameter = 5.8;
 		
 		public static int cmToDegrees(double cm, double diameter) {
 			return (int) ((cm * 360) / (diameter * Math.PI));
