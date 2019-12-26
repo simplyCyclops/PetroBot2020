@@ -4,8 +4,8 @@ import robot.RobotMap;
 import robot.runs.RobotRun;
 import robot.utils.Wait;
 import user.utils.General.Conversion;
+import user.utils.GyroFollow;
 import user.utils.GyroTurn;
-import user.utils.NewGyroFollow;
 
 public class Run2 extends RobotRun {
 
@@ -20,7 +20,7 @@ public class Run2 extends RobotRun {
 		
 		RobotMap.getChassis().tankDriveDegrees(0.8, 0.8, 0.2, Conversion.cmToDegrees(50), true);
 		GyroTurn.turnInPlace(0.1, 47, true);
-		NewGyroFollow.followDegrees(0.8, 1.0, 0.012, Conversion.cmToDegrees(128), 47, false);
+		GyroFollow.followDegrees(0.8, 1.0, 0.012, 0.0, Conversion.cmToDegrees(128), 47, false);
 		RobotMap.getMotor("lWheel").setAcceleration(0.2);
 		RobotMap.getMotor("rWheel").setAcceleration(0.2);
 		RobotMap.getChassis().brake();
