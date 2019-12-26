@@ -42,7 +42,7 @@ public class MainMenu {
 				Delay.msDelay(100);
 				while(RunHandler.isRunning());
 				
-				Delay.msDelay(50);
+				Delay.msDelay(250);
 				RobotUtils.floatAllMotors();
 				break;
 			}
