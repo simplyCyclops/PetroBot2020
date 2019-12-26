@@ -2,7 +2,7 @@ package user.runs;
 
 import robot.RobotMap;
 import robot.runs.RobotRun;
-import robot.utils.wait.Wait;
+import robot.utils.Wait;
 import user.utils.General.Conversion;
 import user.utils.GyroTurn;
 import user.utils.NewGyroFollow;

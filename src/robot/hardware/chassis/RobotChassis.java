@@ -3,7 +3,7 @@ package robot.hardware.chassis;
 import robot.RobotMap;
 import robot.hardware.motors.LargeMotor;
 import robot.runs.RunHandler;
-import robot.utils.wait.Wait;
+import robot.utils.Wait;
 
 public class RobotChassis implements Chassis{
 
@@ -138,6 +138,12 @@ public class RobotChassis implements Chassis{
 			rightMotor.backward(rightSpeed, acceleration);
 		}
 		leftMotor.endSync();
+	}
+	
+	@Override
+	public void setAcceleration(double acceleration) {
+		leftMotor.setAcceleration(acceleration);
+		rightMotor.setAcceleration(acceleration);
 	}
 
 	@Override
