@@ -6,6 +6,7 @@ import robot.hardware.sensors.ColorSensor;
 import robot.hardware.sensors.GyroSensor;
 import user.runs.GyroCheckRun;
 import user.runs.Run2;
+import user.runs.Run3;
 import user.runs.Run4;
 import user.runs.Run5;
 import user.runs.TestRun;
@@ -28,6 +29,7 @@ public class Startup {
 	public static void createRuns() {
 		new GyroCheckRun("Gyro Check");
 		new Run2("Run 2");
+		new Run3("Run 3");
 		new Run4("Run 4");
 		new Run5("Run 5");
 		
