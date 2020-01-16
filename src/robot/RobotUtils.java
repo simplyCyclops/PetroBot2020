@@ -17,7 +17,7 @@ public class RobotUtils {
 			motors[i].drive(0.01, 0.8);
 			Delay.msDelay(50);
 			motors[i].brake(true);
-			motors[i].drive(1.0, 1.0);		
+			motors[i].drive(1.0, 1.0);
 			motors[i].brake(true);
 		}
 		
