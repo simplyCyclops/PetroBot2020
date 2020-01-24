@@ -57,13 +57,23 @@ public class Run4 extends RobotRun {
 		//drive and collide with crane
 		GyroFollow.followDegrees(0.5, 0.1, 0.012, 0, Conversion.cmToDegrees(35), 0, false);
 		
-		Wait.waitForSeconds(0.8);
+		Wait.waitForSeconds(0.5);
+		
+		//back up
 		RobotMap.getChassis().backwardDriveDegrees(0.5, 0.3, Conversion.cmToDegrees(35), false);
 		Wait.waitForSeconds(0.3);
+		
+		//turn toward circle
 		RobotMap.getChassis().tankDriveDegrees(0.5, -0.5, 0.3, 150, true);
-		RobotMap.getChassis().forwardDriveDegrees(0.3, 0.6, Conversion.cmToDegrees(16), true);
+		
+		//drive toward circle
+		RobotMap.getChassis().forwardDriveDegrees(0.3, 0.6, Conversion.cmToDegrees(20), true);
+		
+		//release adrihalut hadshanit
 		RobotMap.getMotor("lArm").rotateDegrees(-1, 720, false);
-		RobotMap.getChassis().tankDriveSeconds(-0.8, -0.9, 1, 2.7, false);
+		
+		//back to home
+		RobotMap.getChassis().tankDriveSeconds(-0.8, -0.9, 1, 3.5, false);
 		
 	}
 }
