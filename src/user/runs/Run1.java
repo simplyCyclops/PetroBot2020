@@ -15,7 +15,7 @@ public class Run1 extends RobotRun {
 	public void runInstructions() {
 		RobotMap.getSensor("gyro").resetToCurrentValue();
 		
-		GyroFollow.followDegrees(0.6, 0.3, 0.07, 0, Conversion.cmToDegrees(60), 0, true);
+		GyroFollow.followDegrees(0.6, 0.3, 0.02, 0, Conversion.cmToDegrees(55), 0, true);
 		RobotMap.getChassis().tankDriveSeconds(-0.5, -1, 2, false);
 	}
 

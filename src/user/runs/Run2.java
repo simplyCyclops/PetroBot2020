@@ -2,7 +2,10 @@ package user.runs;
 
 import robot.RobotMap;
 import robot.runs.RobotRun;
+import robot.utils.Action;
+import robot.utils.Condition;
 import robot.utils.Wait;
+import user.utils.CircleTurn;
 import user.utils.General.Conversion;
 import user.utils.GyroFollow;
 
@@ -14,56 +17,67 @@ public class Run2 extends RobotRun {
 
 	@Override
 	public void runInstructions() {
-
+		
 		RobotMap.getSensor("gyro").resetToCurrentValue();
 		
-		/*RobotMap.getChassis().forwardDriveDegrees(0.4, 0.8, Conversion.cmToDegrees(5), false);
-		Wait.waitForSeconds(0.3);
-		RobotMap.getChassis().tankDriveDegrees(-0.2, 0.2, 80, false);*/
+		/*RobotMap.getChassis().tankDriveDegrees(0.8, 0.8, 0.2, Conversion.cmToDegrees(50), true);
+		GyroTurn.turnInPlace(0.1, 47, true);
+		GyroFollow.followDegrees(0.8, 1.0, 0.012, 0.0, Conversion.cmToDegrees(128), 47, false);
+		RobotMap.getMotor("lWheel").setAcceleration(0.2);
+		RobotMap.getMotor("rWheel").setAcceleration(0.2);
+		RobotMap.getChassis().brake();*/
 		
-		//drive forward a little
-		RobotMap.getChassis().forwardDriveDegrees(0.2, 0.6, Conversion.cmToDegrees(5), false);
-		Wait.waitForSeconds(0.3);
+		RobotMap.getChassis().forwardDriveDegrees(0.2, 0.6, Conversion.cmToDegrees(9.5), true);
+		new Action() {
+			
+			@Override
+			public void execute() {
+				RobotMap.getMotor("lArm").rotateDegrees(-0.8, 1080, true);
+			}
+		}.runInParallel();
 		
-		//turn towards treehouse
-		RobotMap.getChassis().tankDriveDegrees(0.2, -0.2, 90, false);
+		Wait.waitForSeconds(0.3);
+		CircleTurn.turn(0.4, 0.6, 28, 101, "right", false);
+		GyroFollow.followDegrees(0.4, 0.7, 0.01, 0, Conversion.cmToDegrees(120), 90, false);
+		RobotMap.getChassis().tankDriveDegrees(0.2, 0.2, 0.5, Conversion.cmToDegrees(9.35), true);
 		Wait.waitForSeconds(0.5);
 		
-		//drive towards treehouse
-		GyroFollow.followDegrees(0.5, 0.1, 0.012, 0, Conversion.cmToDegrees(65), 44, false);
+		RobotMap.getMotor("lArm").rotateDegrees(0.6, 0.5, 630, true);
+		RobotMap.getChassis().backwardDriveDegrees(0.2, 0.4, Conversion.cmToDegrees(3.5), true);
+		RobotMap.getMotor("lArm").rotateDegrees(0.6, 0.5, 530, true);
 		
+		/*RobotMap.getChassis().backwardDriveDegrees(0.3, 0.4, 350, true);
+		GyroTurn.turnInPlace(0.1, 67, true);
+		RobotMap.getChassis().forwardDriveDegrees(0.6, 0.4, 520, true);*/
 		
-		//slow down to straighten on the treehouse
-		RobotMap.getChassis().forwardDriveSeconds(0.2, 0.4, 3, false);
-		Wait.waitForSeconds(0.5);
-		RobotMap.getMotor("rWheel").rotateDegrees(0.3, 20, false);
+		/*GyroFollow.followDegrees(-0.7, 0.3, 0.012, 0, Conversion.cmToDegrees(20), 90, false);
 		
-		//lower blue pieces on the treehouse
-		RobotMap.getMotor("rArm").rotateSeconds(0.3, 2.5, false);
+		new Action() {
+			
+			@Override
+			public void execute() {
+				RobotMap.getMotor("lArm").rotateDegrees(-0.8, 1160, true);
+			}
+		}.runInParallel();
 		
-		//free the arm from the pieces
-		RobotMap.getMotor("rArm").rotateDegrees(-0.1, 90, true);
+		RobotMap.getChassis().tankDriveDegrees(0.3, -0.3, 0.3, 75, true);
+		RobotMap.getChassis().forwardDriveDegrees(0.5, 0.3, Conversion.cmToDegrees(30), true);*/
 		
-		//back off slowly
-		RobotMap.getChassis().backwardDriveDegrees(0.3, 0.1, Conversion.cmToDegrees(10), false);
+		RobotMap.getChassis().tankDriveDegrees(0.4, -0.4, 0.1, 98, true);
+		RobotMap.getChassis().forwardDriveDegrees(0.4, 0.6, Conversion.cmToDegrees(18), true);
+		RobotMap.getChassis().tankDriveDegrees(-0.4, 0.4, 0.1, 90, true);
 		
-		//drive back
-		RobotMap.getChassis().tankDriveDegrees(-0.65, -0.8, 0.3, Conversion.cmToDegrees(32), true);
+		RobotMap.getChassis().tankDrive(-0.6, -0.5, 0.6);
+
+		new Condition() {
+			
+			@Override
+			public boolean evaluate() {
+				return RobotMap.getSensor("gyro").read() == 90;
+			}
+		}.loopEvaluate();
 		
-		//turn towards the crane
-		RobotMap.getChassis().tankDriveDegrees(-0.2, 0.2, 200, false);
-		Wait.waitForSeconds(0.5);
-		
-		//drive and collide with crane
-		GyroFollow.followDegrees(0.5, 0.1, 0.012, 0, Conversion.cmToDegrees(35), 0, false);
-		
-		Wait.waitForSeconds(0.8);
-		RobotMap.getChassis().backwardDriveDegrees(0.5, 0.3, Conversion.cmToDegrees(35), false);
-		Wait.waitForSeconds(0.3);
-		RobotMap.getChassis().tankDriveDegrees(0.5, -0.5, 0.3, 150, true);
-		RobotMap.getChassis().forwardDriveDegrees(0.3, 0.6, Conversion.cmToDegrees(16), true);
-		RobotMap.getMotor("lArm").rotateDegrees(-1, 720, false);
-		RobotMap.getChassis().tankDriveSeconds(-0.8, -0.9, 1, 2.7, false);
-		
+		RobotMap.getChassis().tankDrive(-0.8, -0.8, 0.8);
 	}
+
 }
