@@ -2,12 +2,11 @@ package user.utils;
 
 import robot.RobotMap;
 import robot.runs.RunHandler;
-import robot.utils.Condition;
 import robot.utils.Wait;
 
 public class GyroTurn {
 
-	public static void turnTo(double lSpeed, double rSpeed, double acceleration, int target) {
+	public static void turnTo(double lSpeed, double rSpeed, int target) {
 		
 		double moveSpeed = 1;
 		int direction = 1;
@@ -32,7 +31,7 @@ public class GyroTurn {
 	}
 	
 	public static void turnTo(double speed, int target) {
-		turnTo(speed, -speed, 1, target);
+		turnTo(speed, -speed, target);
 	}
 	
 	/**
@@ -44,12 +43,12 @@ public class GyroTurn {
 	 * @param angle The amount of degrees to turn
 	 * @param brake Whether the robot should brake or coast at the end
 	 */
-	public static void tankTurn(double lSpeed, double rSpeed, double acceleration, int angle, boolean brake) {
-		turnTo(lSpeed, rSpeed, acceleration, (int)RobotMap.getSensor("gyro").read() + angle);
+	public static void tankTurn(double lSpeed, double rSpeed, int angle) {
+		turnTo(lSpeed, rSpeed, (int)RobotMap.getSensor("gyro").read() + angle);
 	}
 	
-	public static void tankTurn(double lSpeed, double rSpeed, int angle, boolean brake) {
-		tankTurn(lSpeed, rSpeed, 1, angle, brake);
+	public static void turn(double speed, int angle) {
+		tankTurn(speed, -speed, angle);
 	}
 	
 	/*public static void turnInPlace(double lSpeed, int gyroDegrees, boolean brake) {
