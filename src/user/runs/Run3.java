@@ -38,8 +38,8 @@ public class Run3 extends RobotRun {
 		
 		RobotMap.getChassis().tankDriveDegrees(0.3, -0.3, 68, true);
 		Wait.waitForSeconds(0.5);
-		RobotMap.getChassis().tankDriveDegrees(-1, -0.9, 0.4, Conversion.cmToDegrees(45), true);
-		RobotMap.getChassis().tankDriveDegrees(-0.9, -1, 0.4, Conversion.cmToDegrees(125), true);
+		RobotMap.getChassis().tankDriveDegrees(-0.7, -0.6, 0.4, Conversion.cmToDegrees(45), true);
+		RobotMap.getChassis().tankDriveDegrees(-0.8, -0.9, 0.4, Conversion.cmToDegrees(125), true);
 
 	}
 

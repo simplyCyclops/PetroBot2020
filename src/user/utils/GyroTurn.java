@@ -6,11 +6,10 @@ import robot.utils.Wait;
 
 public class GyroTurn {
 
-	public static void turnTo(double lSpeed, double rSpeed, int target) {
-		
+	public static void turnTo(double lSpeed, double rSpeed, int target) {		
 		double moveSpeed = 1;
 		int direction = 1;
-		
+				
 		while(RunHandler.isRunning() && RobotMap.getSensor("gyro").read() != target) {
 			
 			RobotMap.getChassis().tankDrive(lSpeed * moveSpeed * direction, rSpeed * moveSpeed * direction);

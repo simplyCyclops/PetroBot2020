@@ -42,7 +42,7 @@ public class Run4 extends RobotRun {
 		RobotMap.getMotor("rArm").rotateSeconds(0.3, 2.5, false);
 		
 		//free the arm from the pieces
-		RobotMap.getMotor("rArm").rotateDegrees(-0.1, 90, true);
+		RobotMap.getMotor("rArm").rotateDegrees(-0.1, 0.3, 90, true);
 		
 		//back off slowly
 		RobotMap.getChassis().backwardDriveDegrees(0.3, 0.1, Conversion.cmToDegrees(10), false);
