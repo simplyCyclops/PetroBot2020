@@ -1,6 +1,5 @@
 package user.utils;
 
-import lejos.hardware.lcd.LCD;
 import robot.RobotMap;
 import robot.runs.RunHandler;
 import robot.utils.Condition;
@@ -23,6 +22,25 @@ public class GyroTurn {
 			direction = -direction;
 			moveSpeed /= 2;
 		}
+	}
+	
+	/**
+	 * Turns the robot a certain amount of degrees. 
+	 * Direction in based on wheel speed and not the angle
+	 * @param lSpeed The speed of the left wheel
+	 * @param rSpeed The speed of the left wheel
+	 * @param acceleration
+	 * @param angle The amount of degrees to turn
+	 * @param brake Whether the robot should brake or coast at the end
+	 */
+	public static void tankTurn(double lSpeed, double rSpeed, double acceleration, int angle, boolean brake) {
+		int startAngle = (int)RobotMap.getSensor("gyro").read();
+		
+		RobotMap.getChassis().tankDrive(lSpeed, rSpeed, acceleration);
+		
+		while(Math.abs(RobotMap.getSensor("gyro").read() - startAngle) != angle);
+		
+		General.stopRobot(brake);
 	}
 	
 	public static void turnInPlace(double lSpeed, int gyroDegrees, boolean brake) {
