@@ -6,7 +6,8 @@ import robot.utils.Wait;
 
 public class GyroTurn {
 
-	public static void turnTo(double lSpeed, double rSpeed, int target) {		
+	public static void turnTo(double lSpeed, double rSpeed, int target) {	
+		Wait.waitForSeconds(0.3);
 		double moveSpeed = 1;
 		int direction = 1;
 				
@@ -27,6 +28,7 @@ public class GyroTurn {
 			direction = -direction;
 			moveSpeed /= 2;
 		}
+		Wait.waitForSeconds(0.3);
 	}
 	
 	public static void turnTo(double speed, int target) {
