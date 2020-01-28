@@ -4,6 +4,7 @@ import robot.hardware.chassis.RobotChassis;
 import robot.hardware.motors.LargeMotor;
 import robot.hardware.sensors.ColorSensor;
 import robot.hardware.sensors.GyroSensor;
+import user.runs.ColorReset;
 import user.runs.GyroCheckRun;
 import user.runs.Run1;
 import user.runs.Run4;
@@ -27,7 +28,7 @@ public class Startup {
 	}
 
 	public static void createRuns() {
-		new GyroCheckRun("Gyro Check");
+		new ColorReset("Color Reset");
 		new Run1("Run 1");
 		new Run2("Run 2");
 		new Run3("Run 3");

@@ -6,8 +6,8 @@ import robot.runs.RunHandler;
 
 public class LineFollow {
 	
-	static double black = 0;
-	static double white = 1;
+	public static double black = 0;
+	public static double white = 1;
 	static double target = (black + white) / 2;
 	
 	/**

@@ -10,7 +10,9 @@ public class GyroTurn {
 		Wait.waitForSeconds(0.3);
 		double moveSpeed = 1;
 		int direction = 1;
-				
+		
+		if(RobotMap.getSensor("gyro").read() > target) direction = -1;
+		
 		while(RunHandler.isRunning() && RobotMap.getSensor("gyro").read() != target) {
 			
 			RobotMap.getChassis().tankDrive(lSpeed * moveSpeed * direction, rSpeed * moveSpeed * direction);
@@ -28,7 +30,7 @@ public class GyroTurn {
 			direction = -direction;
 			moveSpeed /= 2;
 		}
-		Wait.waitForSeconds(0.3);
+		Wait.waitForSeconds(0.1);
 	}
 	
 	public static void turnTo(double speed, int target) {

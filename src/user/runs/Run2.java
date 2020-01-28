@@ -33,15 +33,14 @@ public class Run2 extends RobotRun {
 		Wait.waitForSeconds(0.3);
 		CircleTurn.turn(0.4, 0.6, 26, 97, "right", false);
 				
-		LineFollow.followDegrees(0.3, Conversion.cmToDegrees(20), 0.1, "rColor", "right");
+		LineFollow.followDegrees(0.3, Conversion.cmToDegrees(20), 0.15, "rColor", "right");
 		GyroTurn.turnTo(0.1, 90);
 		System.out.println(RobotMap.getSensor("gyro").read());
 		
-		GyroFollow.followDegrees(0.4, 0.3, 0.02, 0, Conversion.cmToDegrees(90), 89, true);	//false?
-		GyroTurn.turnTo(0.1, 89);
-		GyroFollow.followDegrees(0.4, 0.3, 0.02, 0, Conversion.cmToDegrees(13), 90, true);	//false?
+		GyroFollow.followDegrees(0.4, 0.3, 0.02, 0, Conversion.cmToDegrees(90), 90, true);	//false?
+		GyroTurn.turnTo(0.1, 90);
 
-		RobotMap.getChassis().tankDriveDegrees(0.2, 0.2, 0.5, Conversion.cmToDegrees(9.2), true);
+		RobotMap.getChassis().tankDriveDegrees(0.2, 0.2, 0.5, Conversion.cmToDegrees(22.2), true);
 		Wait.waitForSeconds(0.5);
 		
 		
@@ -57,7 +56,7 @@ public class Run2 extends RobotRun {
 		
 		RobotMap.getChassis().tankDriveDegrees(-0.4, 0.4, 0.6, 98, false);
 
-		RobotMap.getChassis().tankDriveDegrees(-0.8, -0.8, 0.6, Conversion.cmToDegrees(170), false);
+		RobotMap.getChassis().tankDriveDegrees(-0.8, -0.8, 0.6, Conversion.cmToDegrees(155), false);
 		RobotMap.getChassis().tankDriveDegrees(-0.8, -0.85, 0.6, Conversion.cmToDegrees(100), false);
 
 	}
