@@ -30,7 +30,11 @@ public class ColorReset extends RobotRun{
 		LineFollow.white = RobotMap.getSensor("lColor").read();
 		LCD.clear();
 		Wait.waitForSeconds(0.2);
-
+		
+		LCD.drawString("black: " + LineFollow.black, 0, 0);
+		LCD.drawString("white: " + LineFollow.white, 0, 1);
+		
+		Button.waitForAnyPress();
 	}
 
 }
