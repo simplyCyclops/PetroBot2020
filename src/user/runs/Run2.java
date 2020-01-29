@@ -1,5 +1,6 @@
 package user.runs;
 
+import lejos.hardware.Button;
 import robot.RobotMap;
 import robot.runs.RobotRun;
 import robot.utils.Action;
@@ -37,10 +38,14 @@ public class Run2 extends RobotRun {
 		GyroTurn.turnTo(0.1, 90);
 		System.out.println(RobotMap.getSensor("gyro").read());
 		
-		GyroFollow.followDegrees(0.4, 0.3, 0.02, 0, Conversion.cmToDegrees(90), 90, true);	//false?
+		GyroFollow.followDegrees(0.4, 0.3, 0.02, 0, Conversion.cmToDegrees(85), 90, true);	//false?
 		GyroTurn.turnTo(0.1, 90);
 
-		RobotMap.getChassis().tankDriveDegrees(0.2, 0.2, 0.5, Conversion.cmToDegrees(22.2), true);
+		Button.waitForAnyPress();
+		
+		GyroFollow.followDegrees(0.2, 0.3, 0.02, 0, Conversion.cmToDegrees(32.2), 90, true);	//false?
+
+		//RobotMap.getChassis().tankDriveDegrees(0.2, 0.2, 0.5, Conversion.cmToDegrees(27.2), true);
 		Wait.waitForSeconds(0.5);
 		
 		
