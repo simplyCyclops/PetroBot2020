@@ -4,6 +4,7 @@ import lejos.hardware.Button;
 import robot.RobotMap;
 import robot.runs.RobotRun;
 import robot.utils.Action;
+import robot.utils.Wait;
 import user.utils.CircleTurn;
 import user.utils.GyroFollow;
 import user.utils.GyroTurn;
@@ -35,18 +36,33 @@ public class TestRun extends RobotRun {
 				RobotMap.getMotor("lArm").rotateDegrees(-0.8, 1000, true);
 			}
 		}.runInParallel();
-		LineFollow.followDegrees(0.4, Conversion.cmToDegrees(115), 0.04, "rColor", "right", true);
+		LineFollow.followDegrees(0.4, Conversion.cmToDegrees(90), 0.04, "rColor", "right", true);
 		
-		GyroTurn.turnTo(0.1, 89);
-		GyroFollow.followDegrees(-0.2, 0.4, 0.02, 0, Conversion.cmToDegrees(17), 89, true);
+		GyroTurn.turnTo(0.1, 91);
+		
+		RobotMap.getChassis().tankDriveDegrees(0.5, 0.5, 0.4, Conversion.cmToDegrees(28), true);
+				
+		GyroFollow.followDegrees(-0.2, 0.4, 0.02, 0, Conversion.cmToDegrees(20), 89, true);
 		
 		GyroTurn.turnTo(0.1, -1);
+		RobotMap.getChassis().tankDriveDegrees(-0.3, -0.3, Conversion.cmToDegrees(30), true);
+		Wait.waitForSeconds(0.3);
+		RobotMap.getChassis().tankDriveDegrees(0.3, 0.3, Conversion.cmToDegrees(8), false);
+		GyroFollow.followDegrees(0.2, 0.4, 0.02, 0, Conversion.cmToDegrees(37), -1, true);
+				
+		GyroTurn.turnTo(0.1, 87);
 		
-		GyroFollow.followDegrees(0.2, 0.4, 0.02, 0, Conversion.cmToDegrees(25), -1, true);
+		GyroFollow.followDegrees(0.3, 0.3, 0.02, 0, Conversion.cmToDegrees(41), 89, true);
 		
-		GyroTurn.turnTo(0.1, 89);
+		Wait.waitForSeconds(0.3);
 		
-		GyroFollow.followDegrees(0.3, 0.3, 0.02, 0, Conversion.cmToDegrees(40), 89, true);
+		RobotMap.getMotor("lArm").rotateDegrees(0.6, 0.5, 650, true);
+		RobotMap.getChassis().backwardDriveDegrees(0.2, 0.4, Conversion.cmToDegrees(3.5), true);
+		RobotMap.getMotor("lArm").rotateDegrees(0.6, 0.5, 450, true);
+		
+		Wait.waitForSeconds(0.3);
+		
+		GyroFollow.followDegrees(0.6, 0.6, 0.02, 0, Conversion.cmToDegrees(230), 0, false);
 	}
 
 }
