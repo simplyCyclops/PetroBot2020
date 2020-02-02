@@ -32,9 +32,9 @@ public class Run2 extends RobotRun {
 		}.runInParallel();
 		
 		Wait.waitForSeconds(0.3);
-		CircleTurn.turn(0.4, 0.6, 26, 97, "right", false);
+		CircleTurn.turn(0.4, 0.6, 26, 92, "right", false);
 				
-		LineFollow.followDegrees(0.3, Conversion.cmToDegrees(20), 0.15, "rColor", "right");
+		LineFollow.followDegrees(0.3, Conversion.cmToDegrees(20), 0.15, "rColor", "left");
 		GyroTurn.turnTo(0.1, 90);
 		System.out.println(RobotMap.getSensor("gyro").read());
 		

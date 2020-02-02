@@ -23,7 +23,7 @@ public class TestRun extends RobotRun {
 		RobotMap.getSensor("gyro").resetToCurrentValue();;
 
 		//drive away from wall
-		RobotMap.getChassis().tankDriveDegrees(0.4, 0.4, 0.4, Conversion.cmToDegrees(19), true);
+		RobotMap.getChassis().tankDriveDegrees(0.4, 0.4, 0.4, Conversion.cmToDegrees(18), true);
 		
 		//turn 90 degrees
 		GyroTurn.turnTo(0.1, 89);
@@ -44,7 +44,7 @@ public class TestRun extends RobotRun {
 		LineFollow.followDegrees(0.4, Conversion.cmToDegrees(90), 0.04, "rColor", "right", true);
 		
 		//straighten
-		GyroTurn.turnTo(0.1, 93);
+		GyroTurn.turnTo(0.1, 90);
 		
 		//collide with swing
 		RobotMap.getChassis().tankDriveDegrees(0.5, 0.5, 0.4, Conversion.cmToDegrees(28), true);
@@ -53,7 +53,7 @@ public class TestRun extends RobotRun {
 		RobotMap.getChassis().tankDriveDegrees(-0.4, -0.4, Conversion.cmToDegrees(10), true);
 		
 		//turn 90 degrees
-		GyroTurn.turnTo(0.1, -1);
+		GyroTurn.turnTo(0.1, 1);
 		
 		//drive back to straighten on wall
 		RobotMap.getChassis().tankDriveDegrees(-0.3, -0.3, Conversion.cmToDegrees(30), true);
@@ -70,7 +70,7 @@ public class TestRun extends RobotRun {
 		GyroTurn.turnTo(0.1, 87);
 		
 		//drive towards safety factor
-		GyroFollow.followDegrees(0.3, 0.3, 0.02, 0, Conversion.cmToDegrees(29), 89, true);
+		GyroFollow.followDegrees(0.3, 0.3, 0.02, 0, Conversion.cmToDegrees(27), 89, true);
 		Wait.waitForSeconds(0.3);
 		
 		//do safety factor
