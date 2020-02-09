@@ -5,6 +5,7 @@ import lejos.hardware.lcd.LCD;
 import robot.RobotMap;
 import robot.runs.RobotRun;
 import robot.utils.Wait;
+import user.utils.GyroTurn;
 
 public class GyroCheckRun extends RobotRun{
 
@@ -15,12 +16,13 @@ public class GyroCheckRun extends RobotRun{
 	@Override
 	public void runInstructions() {
 		
-		Wait.waitFor(() -> {
-			LCD.drawInt((int)RobotMap.getSensor("gyro").read(), 0, 0);
-			return Button.getButtons() == Button.ID_ENTER;
-		});
+		RobotMap.getSensor("gyro").resetToCurrentValue();
 		
+		System.out.println(RobotMap.getSensor("gyro").read());
 		
+		GyroTurn.turnTo(0.1, 90);
+		
+		System.out.println(RobotMap.getSensor("gyro").read());
 	}
 
 }
