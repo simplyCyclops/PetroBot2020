@@ -49,10 +49,12 @@ public class LineFollow {
 				|| RobotMap.getMotor("rWheel").readEncoder() < distance) && RunHandler.isRunning()) {
 			error =  RobotMap.getSensor(sensor).read() - target;
 			
-			if(side.equalsIgnoreCase("left"))
+			if(side.equalsIgnoreCase("left")) {
 				RobotMap.getChassis().tankDrive(p0 + (error * kp), p0);
-			else
+			}
+			else {
 				RobotMap.getChassis().tankDrive(p0, p0 + (error * kp));
+			}
 		}
 		
 		
