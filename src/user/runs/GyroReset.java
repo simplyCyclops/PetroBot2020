@@ -49,18 +49,20 @@ public class GyroReset extends RobotRun {
 		
 		LCD.clear();
 		
-		//if gyro value is not 90 recalibrate and try again
-		if(Math.abs(RobotMap.getSensor("gyro").read()) != 90) {
-			LCD.drawString("recalibrating...", 0, 0);
-			
-			resetGyro();
-			
-			LCD.drawString("conplete", 0, 0);
-			
-			runInstructions();
-		} else { //else exit
-			LCD.drawString("Gyro calibrated", 0, 0);
-			Wait.waitForSeconds(0.5);
+		if(RunHandler.isRunning()) {
+			//if gyro value is not 90 recalibrate and try again
+			if(Math.abs(RobotMap.getSensor("gyro").read()) != 90) {
+				LCD.drawString("recalibrating...", 0, 0);
+				
+				resetGyro();
+				
+				LCD.drawString("conplete", 0, 0);
+				
+				runInstructions();
+			} else { //else exit
+				LCD.drawString("Gyro calibrated", 0, 0);
+				Wait.waitForSeconds(0.5);
+			}
 		}
 		
 	}
