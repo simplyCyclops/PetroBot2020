@@ -42,11 +42,8 @@ public class Run4 extends RobotRun {
 		RobotMap.getMotor("rArm").rotateSeconds(0.3, 2.5, false);
 		
 		//free the arm from the pieces
-<<<<<<< HEAD
 		RobotMap.getMotor("rArm").rotateDegrees(-0.1, 0.3, 100, true);
-=======
 		RobotMap.getMotor("rArm").rotateDegrees(-0.1, 0.3, 80, true);
->>>>>>> branch 'master' of https://github.com/simplyCyclops/PetroBot2020.git
 		
 		//back off slowly
 		RobotMap.getChassis().backwardDriveDegrees(0.3, 0.1, Conversion.cmToDegrees(10), false);

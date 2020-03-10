@@ -19,8 +19,7 @@ public class TestRun extends RobotRun {
 	public void runInstructions() {
 		// This run is for testing ideas on the fly | do not delete
 		
-<<<<<<< HEAD
-=======
+
 		//reset gyro
 		RobotMap.getSensor("gyro").resetToCurrentValue();;
 
@@ -84,7 +83,6 @@ public class TestRun extends RobotRun {
 		
 		//drive back to home
 		GyroFollow.followDegrees(-0.6, 0.6, 0.02, 0, Conversion.cmToDegrees(230), 88, false);
->>>>>>> branch 'master' of https://github.com/simplyCyclops/PetroBot2020.git
 	}
 
 }

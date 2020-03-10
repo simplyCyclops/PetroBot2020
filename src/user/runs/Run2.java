@@ -4,6 +4,7 @@ import robot.RobotMap;
 import robot.runs.RobotRun;
 import robot.utils.Action;
 import robot.utils.Wait;
+import user.utils.CircleTurn;
 import user.utils.General.Conversion;
 import user.utils.GyroFollow;
 import user.utils.GyroTurn;
@@ -39,7 +40,6 @@ public class Run2 extends RobotRun {
 			}
 		}.runInParallel();
 		
-<<<<<<< HEAD
 		//follow line at the same time
 		LineFollow.followDegrees(0.4, Conversion.cmToDegrees(90), 0.04, "rColor", "right", true);
 		
@@ -48,19 +48,17 @@ public class Run2 extends RobotRun {
 		
 		//collide with swing
 		RobotMap.getChassis().tankDriveDegrees(0.5, 0.5, 0.4, Conversion.cmToDegrees(28), true);
-=======
+
 		Wait.waitForSeconds(0.3);
 		CircleTurn.turn(0.4, 0.6, 26, 92, "right", false);
->>>>>>> branch 'master' of https://github.com/simplyCyclops/PetroBot2020.git
-				
-<<<<<<< HEAD
+
 		//drive backward
 		RobotMap.getChassis().tankDriveDegrees(-0.4, -0.4, Conversion.cmToDegrees(10), true);
-=======
+
 		LineFollow.followDegrees(0.3, Conversion.cmToDegrees(20), 0.15, "rColor", "left");
 		GyroTurn.turnTo(0.1, 90);
 		System.out.println(RobotMap.getSensor("gyro").read());
->>>>>>> branch 'master' of https://github.com/simplyCyclops/PetroBot2020.git
+
 		
 		//turn 90 degrees
 		GyroTurn.turnTo(0.1, -1);
