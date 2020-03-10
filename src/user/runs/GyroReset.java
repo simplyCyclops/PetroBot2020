@@ -4,12 +4,12 @@ import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import robot.RobotMap;
 import robot.runs.RobotRun;
+import robot.runs.RunHandler;
 import robot.utils.Condition;
 import robot.utils.Wait;
 
 public class GyroReset extends RobotRun {
 
-	String direction = "";
 	
 	Condition enterPressed = new Condition() {
 		
@@ -37,29 +37,25 @@ public class GyroReset extends RobotRun {
 		LCD.clear();
 		
 		//load screen
-		LCD.drawString("rotate", 0, 0);
-		LCD.drawString("90deg " + direction + "clockwise", 0, 1);
+		LCD.drawString("rotate 90 degrees", 0, 0);
 		
 		LCD.drawString("Press ENTER", 0, 6);
 		LCD.drawString("to continue", 0, 7);
 		
 		//show gyro value until ENTER is pressed
-		while(!enterPressed.loopEvaluate()) {
+		while(!enterPressed.loopEvaluate() && RunHandler.isRunning()) {
 			LCD.drawInt((int)RobotMap.getSensor("gyro").read(), 0, 3);
 		}
 		
 		LCD.clear();
 		
 		//if gyro value is not 90 recalibrate and try again
-		if(RobotMap.getSensor("gyro").read() != 90) {
+		if(Math.abs(RobotMap.getSensor("gyro").read()) != 90) {
 			LCD.drawString("recalibrating...", 0, 0);
 			
 			resetGyro();
 			
 			LCD.drawString("conplete", 0, 0);
-			
-			if(direction == "") direction = "counter";
-			else direction = "";
 			
 			runInstructions();
 		} else { //else exit
